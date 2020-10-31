@@ -5,5 +5,8 @@
   "main": "index.js",
   "repository": "algumacoisa",
   "author": "Edivan de Castro",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "typescript": "^4.0.5"
+  }
 }

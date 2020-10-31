@@ -1,0 +1,9 @@
+{
+  "name": "ChefApi",
+  "version": "1.0.0",
+  "description": "Api de criação de menus e personalização do sistema.",
+  "main": "index.js",
+  "repository": "algumacoisa",
+  "author": "Edivan de Castro",
+  "license": "MIT"
+}

@@ -1,6 +1,7 @@
 import * as express from 'express'
 import * as cors from 'cors'
 import Database from './config/database'
+import Routes from './config/routes'
 
 class App {
   private express: express.Application
@@ -22,6 +23,10 @@ class App {
 
   private middlewares(): void {
     this.express.use(cors())
+  }
+
+  private routes(): void {
+    this.express.use('/chef', Routes.load())
   }
 }
 

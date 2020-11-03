@@ -1,4 +1,5 @@
 import * as express from 'express'
+import * as cors from 'cors'
 import Database from './config/database'
 
 class App {
@@ -7,6 +8,7 @@ class App {
   public constructor() {
     this.express = express()
     this.database()
+    this.middlewares()
   }
 
   public init(): express.Application {
@@ -16,6 +18,10 @@ class App {
   private database(): void {
     const database = new Database()
     database.connectMongoDB()
+  }
+
+  private middlewares(): void {
+    this.express.use(cors())
   }
 }
 

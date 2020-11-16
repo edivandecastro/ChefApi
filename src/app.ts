@@ -10,6 +10,7 @@ class App {
     this.express = express()
     this.database()
     this.middlewares()
+    this.routes()
   }
 
   public init(): express.Application {

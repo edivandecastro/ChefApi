@@ -1,7 +1,6 @@
 import { Schema, model, Document } from 'mongoose'
 
 export interface IMenuSchema extends Document {
-  code: string,
   name: string,
   iconName: string,
   className: string,
@@ -12,12 +11,6 @@ export interface IMenuSchema extends Document {
 }
 
 const MenuSchema = new Schema({
-  code: {
-    type: String,
-    required: [true, "é obrigatório"],
-    uppercase: true,
-    index: true
-  },
   name: {
     type: String,
     required: [true, "é obrigatório"],

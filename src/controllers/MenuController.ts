@@ -13,8 +13,11 @@ class MenuController {
   }
 
   public async create(req: Request, res: Response) {
+    let menu_build = await menu.build(req.body.menu)
     try {
-      let menu_persisted = await (await menu.build(req.body.menu)).save()
+      menu_build.markModified('submenus');
+      let menu_persisted = await (menu_build).save()
+
       res.status(200).send({ "message": "Menu salvo com sucesso", "menu": menu_persisted })
     } catch (error) {
       let errors: Array<string> = []

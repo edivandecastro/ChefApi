@@ -1,4 +1,5 @@
 import MenuSchema from '../schemas/Menu'
+import { VerifyAcesss } from '../service/HeimdalApi'
 
 class Menu {
   public async build(menu_params) {
@@ -19,6 +20,28 @@ class Menu {
     else {
       return new MenuSchema(menu_params);
     }
+  }
+
+public async checkAccess(menus, access) {
+    let menusWithoutAccess = []
+
+    for (let index = 0; index < menus.length; index++) {
+      let menu = menus[index]
+      let resource = menu.resource
+      const result = await VerifyAcesss(access.data.token, '604cce0268a4a21f483919c3', resource, 'READ')
+      if (!result.data.access) {
+        menusWithoutAccess.push(index)
+      }
+      else {
+        if(menu.submenus.length > 0) {
+          menu.submenus = await this.checkAccess(menu.submenus, access)
+        }
+      }
+    }
+
+    menusWithoutAccess.forEach((i) => menus.splice(i, 1))
+
+    return menus
   }
 
   private addSubmenu(submenu, menu, i, ids) {

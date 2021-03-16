@@ -1,11 +1,17 @@
 import { Request, Response } from 'express'
 import MenuSchema from '../schemas/Menu'
 import menu from '../models/Menu'
+import { Credentials } from '../service/Api'
+import { AuthenticateUser, VerifyAcesss } from '../service/HeimdalApi'
 
 class MenuController {
   public async all(req: Request, res: Response) {
     try {
-      const menus = await MenuSchema.find();
+      let menus = await MenuSchema.find();
+      const access = await AuthenticateUser(Credentials.username, Credentials.password)
+
+      menus = await menu.checkAccess(menus, access)
+
       res.status(200).send({ menus: menus })
     } catch (error) {
       res.status(400).send({ message: error })

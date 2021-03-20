@@ -22,21 +22,22 @@ class Menu {
     }
   }
 
-public async checkAccess(menus, access) {
+public async checkAccess(menus, token, CurrentUserId) {
     let menusWithoutAccess = []
 
     for (let index = 0; index < menus.length; index++) {
       let menu = menus[index]
       let resource = menu.resource
-      const result = await VerifyAcesss(access.data.token, '604cce0268a4a21f483919c3', resource, 'READ')
-      if (!result.data.access) {
-        menusWithoutAccess.push(index)
-      }
-      else {
-        if(menu.submenus.length > 0) {
-          menu.submenus = await this.checkAccess(menu.submenus, access)
+
+      await VerifyAcesss(token, CurrentUserId, resource, 'READ').then(
+        async () => {
+          if(menu.submenus.length > 0) {
+            menu.submenus = await this.checkAccess(menu.submenus, token, CurrentUserId)
+          }
+        }, () => {
+          menusWithoutAccess.push(index)
         }
-      }
+      )
     }
 
     menusWithoutAccess.forEach((i) => menus.splice(i, 1))

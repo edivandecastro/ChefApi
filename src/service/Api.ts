@@ -1,13 +1,7 @@
 import axios from 'axios'
 
-export const Credentials = {
-  'username': 'chefapi',
-  'password': '123456'
-}
-
 export const baseURL = {
-  'heimdall': 'http://localhost:3002/heimdall',
-  'chef': 'http://localhost:3003/chef'
+  'heimdall': 'http://localhost:3002/heimdall'
 }
 
 export const getAxios = ({ token }, urlApi) => {

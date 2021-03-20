@@ -1,5 +1,6 @@
 import * as express from 'express'
 import { Router } from 'express'
+import Auth from '../middlewares/Auth'
 import MenuController from '../controllers/MenuController'
 
 class Routes {
@@ -17,11 +18,11 @@ class Routes {
   }
 
   public loadRoutesForMenus() {
-    this.router.post('/menus', MenuController.create)
-    this.router.get('/menus/:code', MenuController.show)
-    this.router.put('/menus/:id', MenuController.update)
-    this.router.delete('/menus/:id', MenuController.destroy)
-    this.router.get('/menus', MenuController.all)
+    this.router.post('/menus', Auth.verify, MenuController.create)
+    this.router.get('/menus/:code', Auth.verify, MenuController.show)
+    this.router.put('/menus/:id', Auth.verify, MenuController.update)
+    this.router.delete('/menus/:id', Auth.verify, MenuController.destroy)
+    this.router.get('/menus', Auth.verify, MenuController.all)
   }
 }
 
